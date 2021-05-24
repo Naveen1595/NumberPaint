@@ -16,7 +16,7 @@ public class Pattern
     int randomNumber;
     int currentNumber = 1;
     int[] countNumber = new int[14];
-
+    Color numberColor;
 
     //Constructor for Number Status;
     public Pattern(int width, int height, float cellSize, Vector3 originPosition , int[] countNumber)
@@ -128,13 +128,39 @@ public class Pattern
 
     public void SetValue(Vector3 worldPosition, Sprite sprite)
     {
+        
         int x, y;
         GetXY(worldPosition, out x, out y);
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
             flagGridArray[x, y] = 1;
             debugTextArray[x, y].text = " ";
-            SpriteArray[x, y] = UtilsClass.CreateWorldSprite(gridArray[x, y].ToString(), sprite, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, new Vector3(20f, 20f), 0, Color.cyan);
+            switch(currentNumber)
+            {
+                case 1: numberColor = Color.cyan;
+                    break;
+                case 2: numberColor = Color.yellow;
+                    break;
+                case 3:
+                    numberColor = Color.blue;
+                    break;
+                case 4:
+                    numberColor = Color.white;
+                    break;
+                case 5:
+                    numberColor = Color.grey;
+                    break;
+                case 6:
+                    numberColor = Color.green;
+                    break;
+                case 7:
+                    numberColor = Color.white;
+                    break;
+                case 8:
+                    numberColor = Color.magenta;
+                    break;
+            }
+            SpriteArray[x, y] = UtilsClass.CreateWorldSprite(gridArray[x, y].ToString(), sprite, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, new Vector3(20f, 20f), 0, numberColor);
             countNumber[currentNumber] -= 1;
             if(countNumber[currentNumber] == 0)
             {
